@@ -1,4 +1,5 @@
 package pl.coderstrust.christmas;
+
 import java.util.Scanner;
 
 public class ChristmasTree {
@@ -10,9 +11,9 @@ public class ChristmasTree {
         printChristmasTree(size);
     }
 
-    private static void printChristmasTree(int height) {
+    public static void printChristmasTree(int height) {
         String temp = "*";
-        for(int i = 1 ; i <= height; i++) {
+        for (int i = 1 ; i <= height; i++) {
             System.out.printf("%" + (i + height) + "s\n", temp);
             temp += "**";
         }
