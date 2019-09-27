@@ -16,8 +16,8 @@ public class PascalTriangle {
             for (int j = i; j <= rowsNumber; j++) {
                 System.out.printf("%3s", "");
             }
-            for (int y = 0; y <= i; y++) {
-                System.out.printf("%6d", factorial(i) / (factorial(y) * factorial(i - y)));
+            for (int j = 0; j <= i; j++) {
+                System.out.printf("%6d", factorial(i) / (factorial(j) * factorial(i - j)));
             }
             System.out.println();
         }
