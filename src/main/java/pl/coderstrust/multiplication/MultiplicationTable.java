@@ -25,16 +25,16 @@ public class MultiplicationTable {
         return arr;
     }
 
-    private static void printMultiplicationTable(int[][] arr) {
+    private static void printMultiplicationTable(int[][] table) {
         System.out.printf("%5s", "");
-        for (int i = 1; i <= arr.length; i++) {
+        for (int i = 1; i <= table.length; i++) {
             System.out.printf("%5d", i);
         }
         System.out.println();
-        for (int i = 1; i <= arr.length; i++) {
+        for (int i = 1; i <= table.length; i++) {
             System.out.printf("%5d", i);
-            for (int y = 1; y <= arr.length; y++) {
-                System.out.printf("%5d", arr[i - 1][y - 1]);
+            for (int y = 1; y <= table.length; y++) {
+                System.out.printf("%5d", table[i - 1][y - 1]);
             }
             System.out.println();
         }
