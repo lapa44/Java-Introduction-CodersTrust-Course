@@ -12,7 +12,7 @@ public class MultiplicationTable {
         } while (input > 12);
         sc.close();
         int[][] multiplicationTable = makeArray(input);
-        printMultiplicationTable(input, multiplicationTable);
+        printMultiplicationTable(multiplicationTable);
     }
 
     private static int[][] makeArray(int size) {
@@ -25,15 +25,15 @@ public class MultiplicationTable {
         return arr;
     }
 
-    private static void printMultiplicationTable(int size, int[][] arr) {
+    private static void printMultiplicationTable(int[][] arr) {
         System.out.printf("%5s", "");
-        for (int i = 1; i <= size; i++) {
+        for (int i = 1; i <= arr.length; i++) {
             System.out.printf("%5d", i);
         }
         System.out.println();
-        for (int i = 1; i <= size; i++) {
+        for (int i = 1; i <= arr.length; i++) {
             System.out.printf("%5d", i);
-            for (int y = 1; y <= size; y++) {
+            for (int y = 1; y <= arr.length; y++) {
                 System.out.printf("%5d", arr[i - 1][y - 1]);
             }
             System.out.println();
