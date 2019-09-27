@@ -12,20 +12,20 @@ public class PascalTriangle {
     }
 
     public static void printPascalTriangle(int rowsNumber) {
-        for(int i = 0 ; i < rowsNumber ; i++) {
-            for(int u = i ; u <= rowsNumber ; u++) {
-                System.out.printf("%3c", ' ');
+        for (int i = 0; i < rowsNumber; i++) {
+            for (int j = i; j <= rowsNumber; j++) {
+                System.out.printf("%3s", "");
             }
-            for(int y = 0 ; y <= i ; y++) {
+            for (int y = 0; y <= i; y++) {
                 System.out.printf("%6d", factorial(i) / (factorial(y) * factorial(i - y)));
             }
             System.out.println();
         }
     }
 
-    public static int factorial(int number) {
+    private static int factorial(int number) {
         int result = 1;
-        for(int i = 2  ; i <= number ; i++) {
+        for (int i = 2; i <= number; i++) {
             result *= i;
         }
         return result;
