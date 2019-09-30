@@ -19,7 +19,7 @@ public class FibonacciIterative {
             return 1;
         }
         else {
-            for (int i = 2 ; i <= fibonacciNumberInOrder ; i++) {
+            for (int i = 2; i <= fibonacciNumberInOrder; i++) {
                 nextNumber = temp1 + temp2;
                 temp1 = temp2;
                 temp2 = nextNumber;
