@@ -1,20 +1,11 @@
 package pl.coderstrust.fibonacci;
 
-import java.util.Scanner;
-
 class FibonacciRecursive {
 
-    public static void main(String[] args) {
-        int inputNumber;
-        Scanner sc = new Scanner(System.in);
-        do {
-            System.out.print("Enter fibonacci's number in order you want to see: ");
-            inputNumber = sc.nextInt();
-        } while(inputNumber < 0);
-        System.out.println("Your number is: " + fibonacci(inputNumber));
-    }
-
     public static long fibonacci(int fibonacciNumberInOrder) {
+        if (fibonacciNumberInOrder < 0) {
+            throw new IllegalArgumentException("Number in order can't be negative.");
+        }
         if (fibonacciNumberInOrder == 0) {
             return 0;
         }
