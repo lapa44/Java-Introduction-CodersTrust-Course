@@ -4,7 +4,7 @@ class BubbleSort {
 
     public static int[] sort(int[] array) {
         if (array == null) {
-            throw new NullPointerException("Null array can't be sorted.");
+            throw new IllegalArgumentException("Null cannot be null.");
         }
         int[] arrayToSort = array.clone();
         boolean swapped;
