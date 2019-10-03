@@ -1,21 +1,17 @@
 package pl.coderstrust.sort;
 
+import java.util.Arrays;
+
 public class SortMain {
 
     public static void main(String[] args) {
         int[] array = {401,6,5,400,3,2,444};
-        System.out.println("Selection sort output:");
-        printArray(SelectionSort.sort(array));
-        System.out.println("Bubble sort output:");
-        printArray(BubbleSort.sort(array));
-        System.out.println("Unsorted array:");
-        printArray(array);
-    }
-
-    private static void printArray(int[] arr) {
-        for (int e : arr) {
-            System.out.print(e + " ");
+        try {
+            System.out.println("Selection sort output: " + Arrays.toString(SelectionSort.sort(array)));
+            System.out.println("Bubble sort output: " + Arrays.toString(BubbleSort.sort(array)));
+        } catch (NullPointerException e) {
+            System.out.println("Array can't be equal to null.");
         }
-        System.out.println();
+        System.out.println("Unsorted array: " + Arrays.toString(array));
     }
 }

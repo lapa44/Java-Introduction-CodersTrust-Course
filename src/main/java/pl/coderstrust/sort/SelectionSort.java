@@ -1,22 +1,27 @@
 package pl.coderstrust.sort;
 
-import java.util.Arrays;
-
 class SelectionSort {
 
     public static int[] sort(int[] array) {
-        int[] copyArray = Arrays.copyOf(array, array.length);
-        for (int i = 0; i < copyArray.length; i++) {
+        if (array == null) {
+            throw new NullPointerException("Null array can't be sorted.");
+        }
+        int[] arrayToSort = array.clone();
+        for (int i = 0; i < arrayToSort.length; i++) {
             int minIndex = i;
-            for (int j = i + 1; j < array.length; j++) {
-                if (copyArray[j] < copyArray[minIndex]) {
+            for (int j = i + 1; j < arrayToSort.length; j++) {
+                if (arrayToSort[j] < arrayToSort[minIndex]) {
                     minIndex = j;
                 }
             }
-            int temp = copyArray[minIndex];
-            copyArray[minIndex] = copyArray[i];
-            copyArray[i] = temp;
+            swap(arrayToSort, i, minIndex);
         }
-        return copyArray;
+        return arrayToSort;
+    }
+
+    private static void swap(int[] array, int a, int b) {
+        int temp = array[b];
+        array[b] = array[a];
+        array[a] = temp;
     }
 }
