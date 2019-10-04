@@ -11,15 +11,26 @@ public class SieveOfEratosthenes {
         System.out.println("Your prime numbers: " + Arrays.toString(sieve(sc.nextInt())));
     }
 
-    private static int[] sieve(int maximumNumber) {
-        if (maximumNumber < 0) {
-            throw new IllegalArgumentException("Maximum number cannot be negative.");
+    public static int[] sieve(int maximumNumber) {
+        if (maximumNumber < 2) {
+            return new int[0];
         }
-        int[] array = new int[maximumNumber - 1];
-        int resultLength = maximumNumber - 1;
-        for (int i = 2; i <= maximumNumber; i++) {
+        int[] array = createInitialArray(maximumNumber);
+        int countOfNonPrimeNumbers = markNonePrimeNumbers(array);
+        int countOfPrimeNumbers = array.length - countOfNonPrimeNumbers;
+        return extractPrimesNumbers(array, countOfPrimeNumbers);
+    }
+
+    private static int[] createInitialArray(int size) {
+        int[] array = new int[size - 1];
+        for (int i = 2; i <= size; i++) {
             array[i - 2] = i;
         }
+        return array;
+    }
+
+    private static int markNonePrimeNumbers(int[] array) {
+        int nonPrimeCounter = 0;
         for (int i = 0; i < array.length - 1; i++) {
             for (int j = i + 1; j < array.length; j++) {
                 if (array[j] == 0 || array[i] == 0) {
@@ -27,18 +38,22 @@ public class SieveOfEratosthenes {
                 }
                 if (array[j] % array[i] == 0) {
                     array[j] = 0;
-                    resultLength--;
+                    nonPrimeCounter++;
                 }
             }
         }
-        int[] resultArray = new int[resultLength];
+        return nonPrimeCounter;
+    }
+
+    private static int[] extractPrimesNumbers(int[] array, int countOfPrimeNumbers) {
+        int[] extractedPrimes = new int[countOfPrimeNumbers];
         int counter = 0;
         for (int e : array) {
             if (e != 0) {
-                resultArray[counter] = e;
+                extractedPrimes[counter] = e;
                 counter++;
             }
         }
-        return resultArray;
+        return extractedPrimes;
     }
 }
