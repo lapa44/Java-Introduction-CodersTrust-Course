@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class SieveOfEratosthenes {
 
+    private static final int NON_PRIME_MARKER = 0;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter maximum number for Sieve of Eratosthenes: ");
@@ -22,36 +24,32 @@ public class SieveOfEratosthenes {
     }
 
     private static int[] createInitialArray(int size) {
-        int[] array = new int[size - 1];
-        for (int i = 2; i <= size; i++) {
-            array[i - 2] = i;
+        int[] array = new int[size + 1];
+        for (int i = 0; i <= size; i++) {
+            array[i] = i;
         }
         return array;
     }
 
     private static int markNonePrimeNumbers(int[] array) {
-        int nonPrimeCounter = 0;
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = i + 1; j < array.length; j++) {
-                if (array[j] == 0 || array[i] == 0) {
-                    continue;
-                }
-                if (array[j] % array[i] == 0) {
-                    array[j] = 0;
-                    nonPrimeCounter++;
+        int nonPrimeCount = 2;
+        for (int i = 2; (i * i) <= array.length; i++) {
+            for (int j = i; (i * j) <= array.length - 1; j++) {
+                if (array[i * j] != NON_PRIME_MARKER) {
+                    array[i * j] = NON_PRIME_MARKER;
+                    nonPrimeCount++;
                 }
             }
         }
-        return nonPrimeCounter;
+        return nonPrimeCount;
     }
 
     private static int[] extractPrimesNumbers(int[] array, int countOfPrimeNumbers) {
         int[] extractedPrimes = new int[countOfPrimeNumbers];
         int counter = 0;
-        for (int e : array) {
-            if (e != 0) {
-                extractedPrimes[counter] = e;
-                counter++;
+        for (int i = 2; i < array.length; i++) {
+            if (array[i] != NON_PRIME_MARKER) {
+                extractedPrimes[counter++] = array[i];
             }
         }
         return extractedPrimes;
