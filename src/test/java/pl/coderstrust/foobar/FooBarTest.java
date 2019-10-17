@@ -1,10 +1,10 @@
 package pl.coderstrust.foobar;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,12 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FooBarTest {
 
-    @Test
-    @DisplayName("Unit test for negative value")
-    public void shouldNotAcceptNegativeNumber() {
+    @ParameterizedTest
+    @DisplayName("Parameterized tests for negative values")
+    @ValueSource(ints = {-1, -5, -10, -15, -20, -100})
+    public void shouldThrowExceptionForInvalidNumber(int number) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> FooBar.getFooBar(-1));
-        assertEquals("FooBar numbers can't be negative.", exception.getMessage());
+                () -> FooBar.getFooBar(number));
+        assertEquals("Number cannot be lower than zero.", exception.getMessage());
     }
 
     @ParameterizedTest

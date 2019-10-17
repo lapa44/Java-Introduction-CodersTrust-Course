@@ -11,12 +11,12 @@ class FooBar {
 
     public static List<String> getFooBar(int number) {
         if (number < 0) {
-            throw new IllegalArgumentException("FooBar numbers can't be negative.");
+            throw new IllegalArgumentException("Number cannot be lower than zero.");
         }
         List<String> result = new ArrayList<>();
+        StringBuilder toAdd = new StringBuilder();
         for (int i = 0; i <= number; i++) {
-            StringBuilder toAdd = new StringBuilder(Integer.toString(i));
-            toAdd.append(" ");
+            toAdd.append(i + " ");
             if (i % 3 == 0) {
                 toAdd.append("Foo");
             }
@@ -24,6 +24,7 @@ class FooBar {
                 toAdd.append("Bar");
             }
             result.add(toAdd.toString());
+            toAdd.delete(0, toAdd.length());
         }
         return result;
     }
