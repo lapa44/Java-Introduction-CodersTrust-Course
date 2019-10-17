@@ -6,28 +6,25 @@ import java.util.List;
 class FooBar {
 
     public static void main(String[] args) {
-        printList(createFooBarList(100));
+        getFooBar(100).forEach(System.out::println);
     }
 
-    public static List<String> createFooBarList(int number) {
+    public static List<String> getFooBar(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("FooBar numbers can't be negative.");
+        }
         List<String> result = new ArrayList<>();
         for (int i = 0; i <= number; i++) {
-            String toAdd = Integer.toString(i);
-            toAdd += " ";
+            StringBuilder toAdd = new StringBuilder(Integer.toString(i));
+            toAdd.append(" ");
             if (i % 3 == 0) {
-                toAdd += "Foo";
+                toAdd.append("Foo");
             }
             if (i % 5 == 0) {
-                toAdd += "Bar";
+                toAdd.append("Bar");
             }
-            result.add(toAdd);
+            result.add(toAdd.toString());
         }
         return result;
-    }
-
-    public static void printList(List<String> ls) {
-        for (String e : ls) {
-            System.out.println(e);
-        }
     }
 }

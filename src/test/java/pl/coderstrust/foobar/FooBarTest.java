@@ -1,6 +1,7 @@
 package pl.coderstrust.foobar;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,14 +14,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FooBarTest {
 
-    @ParameterizedTest
-    @DisplayName("Parameterized Tests of FooBar")
-    @MethodSource("createParameters")
-    public void parameterizedFooBarTests(List<String> ls, int number) {
-        assertEquals(ls, FooBar.createFooBarList(number));
+    @Test
+    @DisplayName("Unit test for negative value")
+    public void shouldNotAcceptNegativeNumber() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> FooBar.getFooBar(-1));
+        assertEquals("FooBar numbers can't be negative.", exception.getMessage());
     }
 
-    private static Stream<Arguments> createParameters() {
+    @ParameterizedTest
+    @DisplayName("Parameterized Tests of FooBar")
+    @MethodSource("fooBarArguments")
+    public void shouldReturnCorrectFooBar(List<String> expected, int number) {
+        assertEquals(expected, FooBar.getFooBar(number));
+    }
+
+    private static Stream<Arguments> fooBarArguments() {
         return Stream.of(
                 Arguments.of(Arrays.asList("0 FooBar"), 0),
                 Arguments.of(Arrays.asList("0 FooBar", "1 ", "2 ", "3 Foo", "4 ", "5 Bar"), 5),
