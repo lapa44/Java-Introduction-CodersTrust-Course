@@ -16,7 +16,7 @@ class MultiplicationTableTest {
     @DisplayName("Parameterized test for multiplication table")
     @MethodSource("multiplicationTableArguments")
     public void shouldReturnCorrectMultiplicationTable(int[][] expected, int size) {
-        assertArrayEquals(expected, MultiplicationTable.makeArray(size));
+        assertArrayEquals(expected, MultiplicationTable.getMultiplicationTable(size));
     }
 
     private static Stream<Arguments> multiplicationTableArguments() {
@@ -31,9 +31,9 @@ class MultiplicationTableTest {
     @ParameterizedTest
     @DisplayName("Parameterized test for negative size of multiplication table")
     @ValueSource(ints = {-1, -5, -10, -20, -100})
-    public void shouldThrowExceptionForInvalidNumber(int size) {
+    public void shouldThrowExceptionForInvalidSize(int size) {
         assertThrows(IllegalArgumentException.class, () -> {
-            MultiplicationTable.makeArray(size);
+            MultiplicationTable.getMultiplicationTable(size);
         });
     }
 }

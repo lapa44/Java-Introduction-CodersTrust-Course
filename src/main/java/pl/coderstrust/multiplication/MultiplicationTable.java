@@ -11,21 +11,21 @@ public class MultiplicationTable {
             input = sc.nextInt();
         } while (input > 12);
         sc.close();
-        int[][] multiplicationTable = makeArray(input);
+        int[][] multiplicationTable = getMultiplicationTable(input);
         printMultiplicationTable(multiplicationTable);
     }
 
-    public static int[][] makeArray(int size) {
+    public static int[][] getMultiplicationTable(int size) {
         if (size < 0) {
             throw new IllegalArgumentException("Size cannot be negative.");
         }
-        int[][] arr = new int[size][size];
+        int[][] array = new int[size][size];
         for (int i = 1; i <= size; i++) {
-            for (int y = 1; y <= size; y++) {
-                arr[i - 1][y - 1] = i * y;
+            for (int j = 1; j <= size; j++) {
+                array[i - 1][j - 1] = i * j;
             }
         }
-        return arr;
+        return array;
     }
 
     private static void printMultiplicationTable(int[][] table) {
@@ -36,8 +36,8 @@ public class MultiplicationTable {
         System.out.println();
         for (int i = 1; i <= table.length; i++) {
             System.out.printf("%5d", i);
-            for (int y = 1; y <= table.length; y++) {
-                System.out.printf("%5d", table[i - 1][y - 1]);
+            for (int j = 1; j <= table.length; j++) {
+                System.out.printf("%5d", table[i - 1][j - 1]);
             }
             System.out.println();
         }
