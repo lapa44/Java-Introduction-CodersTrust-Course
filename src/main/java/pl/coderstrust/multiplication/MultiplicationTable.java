@@ -15,7 +15,10 @@ public class MultiplicationTable {
         printMultiplicationTable(multiplicationTable);
     }
 
-    private static int[][] makeArray(int size) {
+    public static int[][] makeArray(int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("Size cannot be negative.");
+        }
         int[][] arr = new int[size][size];
         for (int i = 1; i <= size; i++) {
             for (int y = 1; y <= size; y++) {
