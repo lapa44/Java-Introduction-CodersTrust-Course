@@ -1,5 +1,7 @@
 package pl.coderstrust.christmas;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ChristmasTree {
@@ -8,15 +10,21 @@ public class ChristmasTree {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter tree's height: ");
         int size = sc.nextInt();
-        printChristmasTree(size);
+
+        getChristmasTree(size).forEach(System.out::println);
     }
 
-    public static void printChristmasTree(int height) {
+    public static List<String> getChristmasTree(int height) {
+        if (height < 0) {
+            throw new IllegalArgumentException("Tree's height cannot be lower than zero.");
+        }
+        List<String> result = new ArrayList<>();
         String temp = "*";
         for (int i = 1 ; i <= height; i++) {
-            System.out.printf("%" + (i + height) + "s\n", temp);
+            result.add(String.format("%" + (i + height) + "s", temp));
             temp += "**";
         }
-        System.out.printf("%" + (1 + height) + "s", "**");
+        result.add(String.format("%" + (1 + height) + "s", "**"));
+        return result;
     }
 }
