@@ -1,5 +1,7 @@
 package pl.coderstrust.pascal;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PascalTriangle {
@@ -8,19 +10,27 @@ public class PascalTriangle {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter rows number: ");
         int input = sc.nextInt();
-        printPascalTriangle(input);
+        System.out.println();
+        getPascalTriangle(input).forEach(System.out::println);
     }
 
-    public static void printPascalTriangle(int rowsNumber) {
+    public static List<String> getPascalTriangle(int rowsNumber) {
+        if (rowsNumber < 0) {
+            throw new IllegalArgumentException("Rows number cannot be lower than zero.");
+        }
+        List<String> result = new ArrayList<>();
+        StringBuilder temp = new StringBuilder();
         for (int i = 0; i < rowsNumber; i++) {
+            temp.delete(0, temp.length());
             for (int j = i; j <= rowsNumber; j++) {
-                System.out.printf("%3s", "");
+                temp.append(String.format("%3s", ""));
             }
             for (int j = 0; j <= i; j++) {
-                System.out.printf("%6d", factorial(i) / (factorial(j) * factorial(i - j)));
+                temp.append(String.format("%6d", factorial(i) / (factorial(j) * factorial(i - j))));
             }
-            System.out.println();
+            result.add(temp.toString());
         }
+        return result;
     }
 
     private static int factorial(int number) {
