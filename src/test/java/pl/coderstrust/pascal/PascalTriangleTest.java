@@ -26,16 +26,34 @@ class PascalTriangleTest {
     @ParameterizedTest
     @DisplayName("Parameterized test for Pascal Triangle")
     @MethodSource("pascalTriangleArguments")
-    public void shouldReturnCorrectPascalTriangle(List<String> expected, int height) {
+    public void shouldReturnCorrectPascalTriangle(int height, List<String> expected) {
         assertEquals(expected, PascalTriangle.getPascalTriangle(height));
     }
 
     private static Stream<Arguments> pascalTriangleArguments() {
         return Stream.of(
-                Arguments.of(Arrays.asList("           1"), 1),
-                Arguments.of(Arrays.asList("                 1", "              1     1", "           1     2     1"), 3),
-                Arguments.of(Arrays.asList("                       1", "                    1     1", "                 1     2     1", "              1     3     3     1", "           1     4     6     4     1"), 5),
-                Arguments.of(Arrays.asList("                                      1", "                                   1     1", "                                1     2     1", "                             1     3     3     1", "                          1     4     6     4     1", "                       1     5    10    10     5     1", "                    1     6    15    20    15     6     1", "                 1     7    21    35    35    21     7     1", "              1     8    28    56    70    56    28     8     1", "           1     9    36    84   126   126    84    36     9     1"), 10)
+                Arguments.of(1, Arrays.asList("           1")),
+                Arguments.of(3, Arrays.asList(
+                        "                 1",
+                        "              1     1",
+                        "           1     2     1")),
+                Arguments.of(5, Arrays.asList(
+                        "                       1",
+                        "                    1     1",
+                        "                 1     2     1",
+                        "              1     3     3     1",
+                        "           1     4     6     4     1")),
+                Arguments.of(10, Arrays.asList(
+                        "                                      1",
+                        "                                   1     1",
+                        "                                1     2     1",
+                        "                             1     3     3     1",
+                        "                          1     4     6     4     1",
+                        "                       1     5    10    10     5     1",
+                        "                    1     6    15    20    15     6     1",
+                        "                 1     7    21    35    35    21     7     1",
+                        "              1     8    28    56    70    56    28     8     1",
+                        "           1     9    36    84   126   126    84    36     9     1"))
         );
     }
 }
