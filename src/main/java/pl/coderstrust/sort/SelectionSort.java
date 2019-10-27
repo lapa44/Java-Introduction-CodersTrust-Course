@@ -1,6 +1,6 @@
 package pl.coderstrust.sort;
 
-public class SelectionSort implements SortingMethod {
+class SelectionSort implements SortingMethod {
 
     public int[] sort(int[] array) {
         if (array == null) {

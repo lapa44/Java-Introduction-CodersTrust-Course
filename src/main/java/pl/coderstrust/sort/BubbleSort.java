@@ -1,6 +1,6 @@
 package pl.coderstrust.sort;
 
-public class BubbleSort implements SortingMethod {
+class BubbleSort implements SortingMethod {
 
     public int[] sort(int[] array) {
         if (array == null) {

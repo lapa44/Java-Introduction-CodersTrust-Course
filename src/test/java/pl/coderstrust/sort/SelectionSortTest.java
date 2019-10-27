@@ -1,7 +1,8 @@
 package pl.coderstrust.sort;
 
-public class SelectionSortTest extends SortingTestBase {
-    public SortingMethod getSortingMethod() {
+class SelectionSortTest extends SortingTestBase {
+    @Override
+    SortingMethod getSortingMethod() {
         return new SelectionSort();
     }
 }

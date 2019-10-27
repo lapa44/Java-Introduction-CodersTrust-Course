@@ -1,7 +1,8 @@
 package pl.coderstrust.sort;
 
-public class BubbleSortTest extends SortingTestBase {
-    public SortingMethod getSortingMethod() {
+class BubbleSortTest extends SortingTestBase {
+    @Override
+    SortingMethod getSortingMethod() {
         return new BubbleSort();
     }
 }
