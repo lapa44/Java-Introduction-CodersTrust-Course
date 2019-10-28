@@ -1,6 +1,7 @@
 package pl.coderstrust.sort;
 
 class MergeSort implements SortingMethod {
+    @Override
     public int[] sort(int[] array) {
         if (array.length <= 1) {
             return array;

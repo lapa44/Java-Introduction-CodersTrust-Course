@@ -2,6 +2,7 @@ package pl.coderstrust.sort;
 
 class BubbleSort implements SortingMethod {
 
+    @Override
     public int[] sort(int[] array) {
         if (array == null) {
             throw new IllegalArgumentException("Array cannot be null.");

@@ -2,6 +2,7 @@ package pl.coderstrust.sort;
 
 class QuickSort implements SortingMethod {
 
+    @Override
     public int[] sort(int[] array) {
         return quickSort(array, 0, array.length - 1);
     }

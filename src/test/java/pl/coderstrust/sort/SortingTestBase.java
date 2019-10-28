@@ -4,19 +4,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-
 import java.util.stream.Stream;
 
-
-public abstract class SortingTestBase {
+abstract class SortingTestBase {
     abstract SortingMethod getSortingMethod();
 
     @ParameterizedTest
     @DisplayName("Parameterized tests for sorting")
     @MethodSource("sortingArguments")
-    public void shouldSortArray(int[] input, int[] expected) {
+    void shouldSortArray(int[] input, int[] expected) {
         long startTime = System.currentTimeMillis();
         int[] result = getSortingMethod().sort(input);
         long endTime = System.currentTimeMillis();
