@@ -1,37 +1,30 @@
 package pl.coderstrust.numbers;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
 
  class FileProcessor {
-    public List<String> readLinesFromFile(String fileName) {
-        try {
-            FileInputStream fileIn = new FileInputStream("src/main/resources/" + fileName);
-            List<String> result = new ArrayList<>();
-            Scanner sc = new Scanner(fileIn);
-            while(sc.hasNext()) {
-                result.add(sc.nextLine());
-            }
-            fileIn.close();
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
+    public List<String> readLinesFromFile(String filePath) {
+        if (filePath == null) {
+            throw new NullPointerException();
         }
-        return null;
+        try {
+            return Files.readAllLines(Paths.get(filePath));
+        } catch (Exception e) {
+            System.out.println("Error in reading lines from file: " + e.getMessage());
+            return null;
+        }
     }
 
-    public void writeLinesToFile(List<String> resultLines, String resultFileName) {
+    public void writeLinesToFile(List<String> lines, String filePath) {
+        if (lines == null || filePath == null) {
+            throw new NullPointerException("resultLines and File name cannot be null.");
+        }
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/main/resources/" + resultFileName);
-            for (String element : resultLines) {
-                fileOut.write((element + "\n").getBytes());
-            }
-            fileOut.close();
+            Files.write(Paths.get(filePath), lines);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error in writing lines to file: " + e.getMessage());
         }
     }
 }
