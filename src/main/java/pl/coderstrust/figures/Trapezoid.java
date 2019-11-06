@@ -1,14 +1,21 @@
 package pl.coderstrust.figures;
 
-public class Trapezoid extends Rectangle implements Figure {
+public class Trapezoid implements Figure {
 
-    private double h;
+     double a, b, h;
 
     Trapezoid(double a, double b, double h) {
-        super(a, b);
-        if (h <= 0) {
-            throw new IllegalArgumentException("Trapezoid's height cannot be negative.");
+        if (a <= 0) {
+            throw new IllegalArgumentException("Trapezoid side cannot be lower than or equal to zero.");
         }
+        if (b <= 0) {
+            throw new IllegalArgumentException("Trapezoid side cannot be lower than or equal to zero.");
+        }
+        if (h <= 0) {
+            throw new IllegalArgumentException("Trapezoid height cannot be lower than or equal to zero");
+        }
+        this.a = a;
+        this.b = b;
         this.h = h;
     }
 

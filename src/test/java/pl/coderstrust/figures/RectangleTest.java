@@ -6,7 +6,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RectangleTest {
@@ -50,16 +49,14 @@ class RectangleTest {
     @ParameterizedTest
     @DisplayName("Parameterized test for Rectangle children objects")
     @MethodSource("rectangleObjects")
-    void shouldCreateRectangleChildrenObjects(Rectangle rectangle) {
-        assertNotNull(rectangle);
+    void shouldCreateRectangleChildrenObjects(double expected, Rectangle rectangle) {
+        assertEquals(expected, rectangle.calculateArea());
     }
 
     private static Stream<Arguments> rectangleObjects() {
         return Stream.of(
-                Arguments.of(new Rectangle(1d, 1d)),
-                Arguments.of(new Square(1d)),
-                Arguments.of(new Triangle(1d, 1d)),
-                Arguments.of(new Trapezoid(1d, 1d, 1d))
+                Arguments.of(1d, new Rectangle(1d, 1d)),
+                Arguments.of(1d, new Square(1d))
         );
     }
 }

@@ -5,8 +5,11 @@ public class Rectangle implements Figure {
     double a, b;
 
     Rectangle(double a, double b) {
-        if (a <= 0 || b <= 0) {
-            throw new IllegalArgumentException("Figures values cannot be negative cannot be negative");
+        if (a <= 0) {
+            throw new IllegalArgumentException("Rectangle side cannot be lower than or equal to zero.");
+        }
+        if (b <= 0) {
+            throw new IllegalArgumentException("Rectangle side cannot be lower than or equal to zero.");
         }
         this.a = a;
         this.b = b;
