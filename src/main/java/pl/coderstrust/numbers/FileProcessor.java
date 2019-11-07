@@ -1,30 +1,25 @@
 package pl.coderstrust.numbers;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
  class FileProcessor {
-    public List<String> readLinesFromFile(String filePath) {
+    public List<String> readLinesFromFile(String filePath) throws IOException {
         if (filePath == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("File path cannot be null");
         }
-        try {
-            return Files.readAllLines(Paths.get(filePath));
-        } catch (Exception e) {
-            System.out.println("Error in reading lines from file: " + e.getMessage());
-            return null;
-        }
+        return Files.readAllLines(Paths.get(filePath));
     }
 
-    public void writeLinesToFile(List<String> lines, String filePath) {
-        if (lines == null || filePath == null) {
-            throw new NullPointerException("resultLines and File name cannot be null.");
+    public void writeLinesToFile(List<String> lines, String filePath) throws IOException {
+        if (lines == null) {
+            throw new IllegalArgumentException("Result lines cannot be null.");
         }
-        try {
-            Files.write(Paths.get(filePath), lines);
-        } catch (Exception e) {
-            System.out.println("Error in writing lines to file: " + e.getMessage());
+        if (filePath == null) {
+            throw new IllegalArgumentException("File path cannot be null");
         }
+        Files.write(Paths.get(filePath), lines);
     }
 }

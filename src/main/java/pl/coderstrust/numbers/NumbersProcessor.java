@@ -8,20 +8,25 @@ public class NumbersProcessor {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        Scanner sc = new Scanner(line);
-        int sum = 0, temp;
-        while (sc.hasNextInt()) {
-            temp = sc.nextInt();
-            result.append(temp).append("+");
-            sum += temp;
+        try(Scanner sc = new Scanner(line);) {
+            int sum = 0;
+            int temp = 0;
+            while (sc.hasNextInt()) {
+                temp = sc.nextInt();
+                result.append(temp).append("+");
+                sum += temp;
+            }
+            result.deleteCharAt(result.length() - 1);
+            result.append("=");
+            result.append(sum);
+            return result.toString();
         }
-        result.deleteCharAt(result.length() - 1);
-        result.append("=");
-        result.append(sum);
-        return result.toString();
     }
 
     private boolean isLineValid(String line) {
-        return line != null && line.matches("[-?\\d ]+");
+        if (line == null || line.trim().isEmpty()) {
+            return false;
+        }
+        return line.matches("^[-?\\d\\s]+$");
     }
 }
