@@ -13,12 +13,12 @@ class SquareTest {
 
     @ParameterizedTest
     @DisplayName("Parameterized test for square area")
-    @MethodSource("squareArguments")
+    @MethodSource("squareAreaArguments")
     void shouldReturnAreaOfSquare(double expected, double a) {
         assertEquals(expected, new Square(a).calculateArea());
     }
 
-    private static Stream<Arguments> squareArguments() {
+    private static Stream<Arguments> squareAreaArguments() {
         return Stream.of(
                 Arguments.of(1.0d, 1.0d),
                 Arguments.of(625.0d, 25.0d),
@@ -28,7 +28,7 @@ class SquareTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative rectangle sides")
+    @DisplayName("Parameterized test for negative square sides")
     @ValueSource(doubles = {-1.33d, 0d, -1230d})
     void shouldThrowIllegalArgumentException(double a) {
         assertThrows(IllegalArgumentException.class, () -> {

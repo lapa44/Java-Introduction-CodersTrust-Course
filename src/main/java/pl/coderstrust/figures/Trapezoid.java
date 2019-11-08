@@ -2,14 +2,14 @@ package pl.coderstrust.figures;
 
 public class Trapezoid implements Figure {
 
-     double a, b, h;
+     private double a, b, h;
 
-    Trapezoid(double a, double b, double h) {
+    public Trapezoid(double a, double b, double h) {
         if (a <= 0) {
-            throw new IllegalArgumentException("Trapezoid side cannot be lower than or equal to zero.");
+            throw new IllegalArgumentException("Trapezoid side A cannot be lower than or equal to zero.");
         }
         if (b <= 0) {
-            throw new IllegalArgumentException("Trapezoid side cannot be lower than or equal to zero.");
+            throw new IllegalArgumentException("Trapezoid side B cannot be lower than or equal to zero.");
         }
         if (h <= 0) {
             throw new IllegalArgumentException("Trapezoid height cannot be lower than or equal to zero");

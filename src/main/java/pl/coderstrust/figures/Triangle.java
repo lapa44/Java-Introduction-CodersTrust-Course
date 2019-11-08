@@ -2,9 +2,9 @@ package pl.coderstrust.figures;
 
 public class Triangle implements Figure {
 
-    double a, h;
+    private double a, h;
 
-    Triangle(double a, double h) {
+    public Triangle(double a, double h) {
         if (a <= 0) {
             throw new IllegalArgumentException("Triangle side cannot be be lower than or equal to zero.");
         }

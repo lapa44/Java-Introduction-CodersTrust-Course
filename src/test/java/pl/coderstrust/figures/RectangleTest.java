@@ -12,51 +12,56 @@ class RectangleTest {
 
     @ParameterizedTest
     @DisplayName("Parameterized test for rectangle area")
-    @MethodSource("rectangleArguments")
+    @MethodSource("rectangleAreaArguments")
     void shouldReturnAreaOfRectangle(double expected, double a, double b) {
-        assertEquals(expected, new Rectangle(a, b).calculateArea());
+        assertEquals(expected, new Rectangle(a, b).calculateArea(), 0.01);
     }
 
-    private static Stream<Arguments> rectangleArguments() {
+    private static Stream<Arguments> rectangleAreaArguments() {
         return Stream.of(
-                Arguments.of(1.0d, 1.0d, 1.0d),
-                Arguments.of(1000.0d, 25.0d, 40.0d),
-                Arguments.of(321.25300000000004d, 13.33d, 24.10d),
-                Arguments.of(13408.3246d, 999.13d, 13.42d),
-                Arguments.of(4442.472000000001d, 141.3d, 31.44d)
+                Arguments.of(1.0, 1.0d, 1.0d),
+                Arguments.of(1000.0, 25.0d, 40.0d),
+                Arguments.of(321.25, 13.33d, 24.10d),
+                Arguments.of(13408.32, 999.13d, 13.42d),
+                Arguments.of(4442.47, 141.3d, 31.44d)
         );
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative rectangle sides")
-    @MethodSource("rectangleNegativeArguments")
-    void shouldThrowIllegalArgumentException(double a, double b) {
+    @DisplayName("Parameterized test for negative rectangle side A")
+    @MethodSource("rectangleNegativeArgumentsAsSideA")
+    void shouldThrowIllegalArgumentExceptionForSideA(double a, double b) {
         assertThrows(IllegalArgumentException.class, () -> {
             new Rectangle(a, b);
         });
     }
 
-    private static Stream<Arguments> rectangleNegativeArguments() {
+    private static Stream<Arguments> rectangleNegativeArgumentsAsSideA() {
         return Stream.of(
-                Arguments.of(-1.0d, 44.0d),
-                Arguments.of(10d, -34.231d),
-                Arguments.of(0d, 18.3d),
-                Arguments.of(-100d, -341.2d),
-                Arguments.of(0d, 0d)
+                Arguments.of(-1.0, 44.0d),
+                Arguments.of(-10, 34.231d),
+                Arguments.of(0, 18.3d),
+                Arguments.of(-100, 341.2d),
+                Arguments.of(0, 0d)
         );
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for Rectangle children objects")
-    @MethodSource("rectangleObjects")
-    void shouldCreateRectangleChildrenObjects(double expected, Rectangle rectangle) {
-        assertEquals(expected, rectangle.calculateArea());
+    @DisplayName("Parameterized test for negative rectangle side A")
+    @MethodSource("rectangleNegativeArgumentsAsSideB")
+    void shouldThrowIllegalArgumentExceptionForSideB(double a, double b) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Rectangle(a, b);
+        });
     }
 
-    private static Stream<Arguments> rectangleObjects() {
+    private static Stream<Arguments> rectangleNegativeArgumentsAsSideB() {
         return Stream.of(
-                Arguments.of(1d, new Rectangle(1d, 1d)),
-                Arguments.of(1d, new Square(1d))
+                Arguments.of(1.0, -44.0d),
+                Arguments.of(10, -34.231d),
+                Arguments.of(33, -18.3d),
+                Arguments.of(100, -341.2d),
+                Arguments.of(14, 0d)
         );
     }
 }

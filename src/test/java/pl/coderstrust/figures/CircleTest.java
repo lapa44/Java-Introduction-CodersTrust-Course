@@ -13,26 +13,26 @@ class CircleTest {
 
     @ParameterizedTest
     @DisplayName("Parameterized test for circle area")
-    @MethodSource("circleArguments")
+    @MethodSource("circleAreaArguments")
     void shouldReturnAreaOfCircle(double expected, double r) {
-        assertEquals(expected, new Circle(r).calculateArea());
+        assertEquals(expected, new Circle(r).calculateArea(), 0.01);
     }
 
-    private static Stream<Arguments> circleArguments() {
+    private static Stream<Arguments> circleAreaArguments() {
         return Stream.of(
-                Arguments.of(3.141592653589793d, 1.0d),
-                Arguments.of(1963.4954084936207d, 25.0d),
-                Arguments.of(564.1043768785833d, 13.4d),
-                Arguments.of(3135312.609875267d, 999d)
+                Arguments.of(3.14, 1.0d),
+                Arguments.of(1963.49, 25.0d),
+                Arguments.of(564.1, 13.4d),
+                Arguments.of(3135312.6, 999d)
         );
     }
 
     @ParameterizedTest
     @DisplayName("Parameterized test for negative circle radius")
     @ValueSource(doubles = {-1.33d, 0d, -1230d})
-    void shouldThrowIllegalArgumentException(double r) {
+    void shouldThrowIllegalArgumentExceptionForInvalidRadius(double radius) {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Circle(r);
+            new Circle(radius);
         });
     }
 }

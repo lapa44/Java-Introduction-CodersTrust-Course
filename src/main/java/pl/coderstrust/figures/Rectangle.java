@@ -2,14 +2,14 @@ package pl.coderstrust.figures;
 
 public class Rectangle implements Figure {
 
-    double a, b;
+    private double a, b;
 
-    Rectangle(double a, double b) {
+    public Rectangle(double a, double b) {
         if (a <= 0) {
-            throw new IllegalArgumentException("Rectangle side cannot be lower than or equal to zero.");
+            throw new IllegalArgumentException("Rectangle side A cannot be lower than or equal to zero.");
         }
         if (b <= 0) {
-            throw new IllegalArgumentException("Rectangle side cannot be lower than or equal to zero.");
+            throw new IllegalArgumentException("Rectangle side B cannot be lower than or equal to zero.");
         }
         this.a = a;
         this.b = b;
