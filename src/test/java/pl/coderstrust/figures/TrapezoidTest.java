@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.stream.Stream;
@@ -27,56 +28,23 @@ class TrapezoidTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative trapezoid side a")
-    @MethodSource("trapezoidNegativeArgumentsAsSideA")
-    void shouldThrowIllegalArgumentExceptionForInvalidSideA(double a, double b, double h) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Trapezoid(a, b, h);
-        });
-    }
-
-    private static Stream<Arguments> trapezoidNegativeArgumentsAsSideA() {
-        return Stream.of(
-                Arguments.of(-1.0d, 44.0d, 183.34d),
-                Arguments.of(-10d, 34.231d, 18.88d),
-                Arguments.of(-13.2d, 24.5d, 34.4d),
-                Arguments.of(0d, 18.3d, 131.4d)
-        );
+    @DisplayName("Parameterized test for invalid trapezoid side A")
+    @ValueSource(doubles = {-1, -10, -13.2, 0})
+    void shouldThrowIllegalArgumentExceptionForInvalidSideA(double a) {
+        assertThrows(IllegalArgumentException.class, () -> new Trapezoid(a, 2.0d, 2.0d));
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative trapezoid side b")
-    @MethodSource("trapezoidNegativeArgumentsAsSideB")
-    void shouldThrowIllegalArgumentExceptionForInvalidSideB(double a, double b, double h) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Trapezoid(a, b, h);
-        });
-    }
-
-    private static Stream<Arguments> trapezoidNegativeArgumentsAsSideB() {
-        return Stream.of(
-                Arguments.of(1.0d, -44.0d, 183.34d),
-                Arguments.of(10d, -34.231d, 18.88d),
-                Arguments.of(13.2d, -24.5d, 34.4d),
-                Arguments.of(18.3d, 0d, 131.4d)
-        );
+    @DisplayName("Parameterized test for invalid trapezoid side B")
+    @ValueSource(doubles = {-44, -34.231, -24.5, 0})
+    void shouldThrowIllegalArgumentExceptionForInvalidSideB(double b) {
+        assertThrows(IllegalArgumentException.class, () -> new Trapezoid(2.0d, b, 2.0d));
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative trapezoid height")
-    @MethodSource("trapezoidNegativeArgumentsAsHeight")
-    void shouldThrowIllegalArgumentExceptionForInvalidHeight(double a, double b, double h) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Trapezoid(a, b, h);
-        });
-    }
-
-    private static Stream<Arguments> trapezoidNegativeArgumentsAsHeight() {
-        return Stream.of(
-                Arguments.of(1.0d, 44.0d, -183.34d),
-                Arguments.of(10d, 34.231d, -18.88d),
-                Arguments.of(13.2d, 24.5d, -34.4d),
-                Arguments.of(18.3d, 131.4d, 0d)
-        );
+    @DisplayName("Parameterized test for invalid trapezoid height")
+    @ValueSource(doubles = {-183.34, -18.88, -34.4, 0})
+    void shouldThrowIllegalArgumentExceptionForInvalidHeight(double h) {
+        assertThrows(IllegalArgumentException.class, () -> new Trapezoid(2.0d, 2.0d, h));
     }
 }

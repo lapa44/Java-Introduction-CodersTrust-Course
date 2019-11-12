@@ -2,7 +2,7 @@ package pl.coderstrust.figures;
 
 public class Trapezoid implements Figure {
 
-     private double a, b, h;
+    private double a, b, h;
 
     public Trapezoid(double a, double b, double h) {
         if (a <= 0) {

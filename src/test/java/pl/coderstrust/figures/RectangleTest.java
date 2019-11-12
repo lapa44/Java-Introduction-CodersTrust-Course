@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ValueSource;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,40 +29,16 @@ class RectangleTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative rectangle side A")
-    @MethodSource("rectangleNegativeArgumentsAsSideA")
-    void shouldThrowIllegalArgumentExceptionForSideA(double a, double b) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Rectangle(a, b);
-        });
-    }
-
-    private static Stream<Arguments> rectangleNegativeArgumentsAsSideA() {
-        return Stream.of(
-                Arguments.of(-1.0, 44.0d),
-                Arguments.of(-10, 34.231d),
-                Arguments.of(0, 18.3d),
-                Arguments.of(-100, 341.2d),
-                Arguments.of(0, 0d)
-        );
+    @DisplayName("Parameterized test for invalid rectangle side A")
+    @ValueSource(doubles = {-1.0, -10, 0, -100, 0})
+    void shouldThrowIllegalArgumentExceptionForInvalidSideA(double a) {
+        assertThrows(IllegalArgumentException.class, () -> new Rectangle(a, 2.0d));
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative rectangle side A")
-    @MethodSource("rectangleNegativeArgumentsAsSideB")
-    void shouldThrowIllegalArgumentExceptionForSideB(double a, double b) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Rectangle(a, b);
-        });
-    }
-
-    private static Stream<Arguments> rectangleNegativeArgumentsAsSideB() {
-        return Stream.of(
-                Arguments.of(1.0, -44.0d),
-                Arguments.of(10, -34.231d),
-                Arguments.of(33, -18.3d),
-                Arguments.of(100, -341.2d),
-                Arguments.of(14, 0d)
-        );
+    @DisplayName("Parameterized test for invalid rectangle side B")
+    @ValueSource(doubles = {-44.0, -34.231, -18.3, -341.2, 0})
+    void shouldThrowIllegalArgumentExceptionForInvalidSideB(double b) {
+        assertThrows(IllegalArgumentException.class, () -> new Rectangle(2.0d, b));
     }
 }

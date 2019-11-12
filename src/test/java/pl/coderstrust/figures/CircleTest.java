@@ -28,11 +28,9 @@ class CircleTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative circle radius")
+    @DisplayName("Parameterized test for invalid circle radius")
     @ValueSource(doubles = {-1.33d, 0d, -1230d})
     void shouldThrowIllegalArgumentExceptionForInvalidRadius(double radius) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Circle(radius);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Circle(radius));
     }
 }

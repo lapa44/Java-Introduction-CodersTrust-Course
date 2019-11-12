@@ -28,11 +28,9 @@ class SquareTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative square sides")
+    @DisplayName("Parameterized test for invalid square sides")
     @ValueSource(doubles = {-1.33d, 0d, -1230d})
     void shouldThrowIllegalArgumentException(double a) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Square(a);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Square(a));
     }
 }

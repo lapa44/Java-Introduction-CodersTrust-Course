@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.stream.Stream;
@@ -28,40 +29,16 @@ class TriangleTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative triangle side")
-    @MethodSource("triangleNegativeSideArgument")
-    void shouldThrowIllegalArgumentExceptionForInvalidSide(double a, double h) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Triangle(a, h);
-        });
-    }
-
-    private static Stream<Arguments> triangleNegativeSideArgument() {
-        return Stream.of(
-                Arguments.of(-1.0d, 44.0d),
-                Arguments.of(-10d, 34.231d),
-                Arguments.of(0d, 18.3d),
-                Arguments.of(-100d, 341.2d),
-                Arguments.of(0d, 0d)
-        );
+    @DisplayName("Parameterized test for invalid triangle side A")
+    @ValueSource(doubles = {-1, -10, 0, -100, -33.33})
+    void shouldThrowIllegalArgumentExceptionForInvalidSide(double a) {
+        assertThrows(IllegalArgumentException.class, () -> new Triangle(a, 2.0d));
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for negative triangle height")
-    @MethodSource("triangleNegativeHeightArgument")
-    void shouldThrowIllegalArgumentExceptionForInvalidHeight(double a, double h) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Triangle(a, h);
-        });
-    }
-
-    private static Stream<Arguments> triangleNegativeHeightArgument() {
-        return Stream.of(
-                Arguments.of(1.0d, -44.0d),
-                Arguments.of(10d, -34.231d),
-                Arguments.of(30d, -18.3d),
-                Arguments.of(100d, -341.2d),
-                Arguments.of(0d, 0d)
-        );
+    @DisplayName("Parameterized test for invalid triangle height")
+    @ValueSource(doubles = {-44, -34.231, -18.3, -341.2, 0})
+    void shouldThrowIllegalArgumentExceptionForInvalidHeight(double h) {
+        assertThrows(IllegalArgumentException.class, () -> new Triangle(2.0d, h));
     }
 }
