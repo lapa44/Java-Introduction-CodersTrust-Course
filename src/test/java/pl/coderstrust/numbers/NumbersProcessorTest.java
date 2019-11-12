@@ -27,15 +27,15 @@ class NumbersProcessorTest {
     @ParameterizedTest
     @DisplayName("Parameterized test for processLine - should return empty string")
     @MethodSource("invalidLinesArguments")
-    void shouldReturnEmptyStringForInvalidLine(String expected, String line) {
-        assertEquals(expected, new NumbersProcessor().processLine(line));
+    void shouldReturnEmptyStringForInvalidLine(String line) {
+        assertEquals("", new NumbersProcessor().processLine(line));
     }
 
     private static Stream<Arguments> invalidLinesArguments() {
         return Stream.of(
-                Arguments.of("", "1 1** 34000"),
-                Arguments.of("", "Some text 333"),
-                Arguments.of("", null)
+                Arguments.of("1 1** 34000"),
+                Arguments.of("Some text 333"),
+                Arguments.of((Object) null)
         );
     }
 }

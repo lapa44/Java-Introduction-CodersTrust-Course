@@ -3,14 +3,10 @@ package pl.coderstrust.numbers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -43,67 +39,27 @@ class ProcessorTest {
         verify(fileProcessor).writeLinesToFile(Arrays.asList("1+2+3=6", "4+5+6=15", "-1+-2+-3=-6"), "numbersOutput.txt");
     }
 
-    @ParameterizedTest
-    @DisplayName("Parameterized test for Processor constructor - should throw exception for null as NumbersProcessor")
-    @MethodSource("processorNullNumbersProcessorArguments")
-    void constructorShouldThrowExceptionForNullAsNumbersProcessor(NumbersProcessor numbersProcessor, FileProcessor fileProcessor) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Processor(numbersProcessor, fileProcessor);
-        });
+    @Test
+    @DisplayName("Unit test for Processor constructor - should throw exception for null as NumbersProcessor")
+    void constructorShouldThrowExceptionForNullAsNumbersProcessor() {
+        assertThrows(IllegalArgumentException.class, () -> new Processor(null, new FileProcessor()));
     }
 
-    private static Stream<Arguments> processorNullNumbersProcessorArguments() {
-        return Stream.of(
-                Arguments.of(null, null),
-                Arguments.of(null, new FileProcessor())
-        );
+    @Test
+    @DisplayName("Unit test for Processor constructor - should throw exception for null as FileProcessor")
+    void constructorShouldThrowExceptionForNullAsFileProcessor() {
+        assertThrows(IllegalArgumentException.class, () -> new Processor(new NumbersProcessor(), null));
     }
 
-    @ParameterizedTest
-    @DisplayName("Parameterized test for Processor constructor - should throw exception for null as FileProcessor")
-    @MethodSource("processorNullFileProcessorArguments")
-    void constructorShouldThrowExceptionForNullAsFileProcessor(NumbersProcessor numbersProcessor, FileProcessor fileProcessor) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Processor(numbersProcessor, fileProcessor);
-        });
+    @Test
+    @DisplayName("Unit test for process method - should throw exception for null as Input File")
+    void processMethodShouldThrowExceptionForNullAsInputFile() {
+        assertThrows(IllegalArgumentException.class, () -> processor.process(null, "file.txt"));
     }
 
-    private static Stream<Arguments> processorNullFileProcessorArguments() {
-        return Stream.of(
-                Arguments.of(new NumbersProcessor(), null),
-                Arguments.of(null, null)
-        );
-    }
-
-    @ParameterizedTest
-    @DisplayName("Parameterized test for process method - should throw exception for null as Input File")
-    @MethodSource("processNullInputFileArguments")
-    void processMethodShouldThrowExceptionForNullAsInputFile(String inputFilePath, String outputFilePath) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            processor.process(inputFilePath, outputFilePath);
-        });
-    }
-
-    private static Stream<Arguments> processNullInputFileArguments() {
-        return Stream.of(
-                Arguments.of(null, null),
-                Arguments.of(null, "fakeFile.txt")
-        );
-    }
-
-    @ParameterizedTest
-    @DisplayName("Parameterized test for process method - should throw exception for null as Output File")
-    @MethodSource("processNullOutputFileArguments")
-    void processMethodShouldThrowExceptionForNullAsOutputFile(String inputFilePath, String outputFilePath) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            processor.process(inputFilePath, outputFilePath);
-        });
-    }
-
-    private static Stream<Arguments> processNullOutputFileArguments() {
-        return Stream.of(
-                Arguments.of(null, null),
-                Arguments.of("fakeFile.txt", null)
-        );
+    @Test
+    @DisplayName("Unit test for process method - should throw exception for null as Output File")
+    void processMethodShouldThrowExceptionForNullAsOutputFile() {
+        assertThrows(IllegalArgumentException.class, () -> processor.process("file.txt", null));
     }
 }
