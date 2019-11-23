@@ -15,14 +15,14 @@ class IPv4CheckerTest {
     @DisplayName("Parameterized test for invalid Ip Adresses")
     @ValueSource(strings = {"-1.0.0.0", "256.144.33.1000", "0.0.0.-10", "192.168.256.420", "1000.1000.1000.1000.1000"})
     void shouldReturnFalseForInvalidIpAddress(String input) {
-        assertFalse(new IPv4Checker().isIPAdress(input));
+        assertFalse(new IPv4Checker().isIpAdress(input));
     }
 
     @ParameterizedTest
     @DisplayName("Parameterized test for valid Ip Adresses")
     @ValueSource(strings = {"0.0.0.0", "255.255.255.255", "1.0.0.10", "192.168.255.220", "192.168.0.131"})
     void shouldReturnTrueForValidIpAddress(String input) {
-        assertTrue(new IPv4Checker().isIPAdress(input));
+        assertTrue(new IPv4Checker().isIpAdress(input));
     }
 
     @ParameterizedTest
@@ -30,14 +30,14 @@ class IPv4CheckerTest {
     @ValueSource(strings = {"%d.1.1.1", "1.%d.1.1", "1.1.%d.1", "1.1.1.%d"})
     void smartTest(String ipAddressTemplate) {
         for (int i = 0; i < 256; i++) {
-            assertTrue(new IPv4Checker().isIPAdress(String.format(ipAddressTemplate, i)));
+            assertTrue(new IPv4Checker().isIpAdress(String.format(ipAddressTemplate, i)));
         }
     }
 
     @Test
     @DisplayName("Unit test throwing illegal argument exception as input")
     void shouldThrowExceptionForInvalidInput() {
-        assertThrows(IllegalArgumentException.class, () -> new IPv4Checker().isIPAdress(null));
+        assertThrows(IllegalArgumentException.class, () -> new IPv4Checker().isIpAdress(null));
     }
 
     @Disabled
@@ -56,7 +56,7 @@ class IPv4CheckerTest {
                 for (int k = 0; k < 256; k++) {
                     for (int l = 0; l < 256; l++) {
                         pattern.append(i).append(".").append(j).append(".").append(k).append(".").append(l);
-                        assertTrue(ipChecker.isIPAdress(pattern.toString()));
+                        assertTrue(ipChecker.isIpAdress(pattern.toString()));
                         pattern.setLength(0);
                     }
                 }
