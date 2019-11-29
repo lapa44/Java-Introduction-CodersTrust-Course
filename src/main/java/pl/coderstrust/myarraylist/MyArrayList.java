@@ -9,16 +9,16 @@ import java.util.ListIterator;
 public class MyArrayList<T> implements List<T> {
 
     private final static int DEFAULT_SIZE = 10;
-    private Object[] a;
+    private Object[] objects;
     private int size;
 
     MyArrayList(T[] array) {
-        a = array;
+        objects = Arrays.copyOf(array, array.length);
         size = array.length;
     }
 
     MyArrayList() {
-        a = new Object[DEFAULT_SIZE];
+        objects = new Object[DEFAULT_SIZE];
         size = 0;
     }
 
@@ -39,12 +39,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Itr();
+        return new MyArrayListIterator();
     }
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(a, size());
+        return Arrays.copyOf(objects, size());
     }
 
     @Override
@@ -55,9 +55,9 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean add(T e) {
         Object[] newArray = new Object[size + 1];
-        System.arraycopy(a, 0, newArray, 0, size);
-        a = newArray;
-        a[size++] = e;
+        System.arraycopy(objects, 0, newArray, 0, size);
+        objects = newArray;
+        objects[size++] = e;
         return true;
     }
 
@@ -67,8 +67,8 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         int index = indexOf(o);
-        System.arraycopy(a, index + 1, a, index, size() - index - 1);
-        a[--size] = null;
+        System.arraycopy(objects, index + 1, objects, index, size() - index - 1);
+        objects[--size] = null;
         return true;
     }
 
@@ -85,10 +85,10 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean addAll(Collection<? extends T> c) {
         Object[] newArray = new Object[size + c.size()];
-        System.arraycopy(a, 0, newArray, 0, size);
+        System.arraycopy(objects, 0, newArray, 0, size);
         System.arraycopy(c.toArray(), 0, newArray, size, c.size());
         size += c.size();
-        a = newArray;
+        objects = newArray;
         return true;
     }
 
@@ -97,15 +97,15 @@ public class MyArrayList<T> implements List<T> {
         Object[] newArray = new Object[size + c.size()];
         if (index == 0) {
             System.arraycopy(c.toArray(), 0, newArray, 0, c.size());
-            System.arraycopy(a, 0, newArray, c.size(), size);
+            System.arraycopy(objects, 0, newArray, c.size(), size);
         }
         else {
-            System.arraycopy(a, 0, newArray, 0, index);
+            System.arraycopy(objects, 0, newArray, 0, index);
             System.arraycopy(c.toArray(), 0, newArray, index, c.size());
-            System.arraycopy(a, index, newArray, index + c.size(), size - index);
+            System.arraycopy(objects, index, newArray, index + c.size(), size - index);
         }
         size = size + c.size();
-        a = newArray;
+        objects = newArray;
         return true;
     }
 
@@ -120,7 +120,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public boolean retainAll(Collection<?> c) {
         MyArrayList<Object> array = new MyArrayList<>();
-        for (Object el : a) {
+        for (Object el : objects) {
             if (!c.contains(el))
             {
                 array.add(el);
@@ -133,7 +133,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public void clear() {
         for (int i = 0; i < size(); i++) {
-            a[i] = null;
+            objects[i] = null;
         }
         size = 0;
     }
@@ -144,7 +144,7 @@ public class MyArrayList<T> implements List<T> {
             throw new IndexOutOfBoundsException("There is no element at given index.");
         }
         @SuppressWarnings("unchecked")
-        T result = (T) a[index];
+        T result = (T) objects[index];
         return result;
     }
 
@@ -154,8 +154,8 @@ public class MyArrayList<T> implements List<T> {
             throw new IndexOutOfBoundsException("There is no element at given index.");
         }
         @SuppressWarnings("unchecked")
-        T oldValue = (T) a[index];
-        a[index] = element;
+        T oldValue = (T) objects[index];
+        objects[index] = element;
         return oldValue;
     }
 
@@ -164,14 +164,14 @@ public class MyArrayList<T> implements List<T> {
         Object[] newArray = new Object[++size];
         if(index == 0) {
             newArray[0] = element;
-            System.arraycopy(a, 0, newArray, 1, size - 1);
+            System.arraycopy(objects, 0, newArray, 1, size - 1);
         }
         else {
-            System.arraycopy(a, 0, newArray, 0, index);
+            System.arraycopy(objects, 0, newArray, 0, index);
             newArray[index] = element;
-            System.arraycopy(a, index, newArray, index + 1, size - 1 - index);
+            System.arraycopy(objects, index, newArray, index + 1, size - 1 - index);
         }
-        a = newArray;
+        objects = newArray;
     }
 
     @Override
@@ -180,15 +180,18 @@ public class MyArrayList<T> implements List<T> {
             throw new IndexOutOfBoundsException("There is no element at given index.");
         }
         T el = get(index);
-       System.arraycopy(a, index + 1, a, index, size - index - 1);
-       a[--size] = null;
+        System.arraycopy(objects, index + 1, objects, index, size - index - 1);
+        objects[--size] = null;
         return el;
     }
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < a.length; i++) {
-            if (o.equals(a[i])) {
+        if (o == null) {
+            throw new NullPointerException();
+        }
+        for (int i = 0; i < objects.length; i++) {
+            if (o.equals(objects[i])) {
                 return i;
             }
         }
@@ -198,7 +201,7 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public int lastIndexOf(Object o) {
         for (int i = size()-1; i > -1; i--) {
-            if (o.equals(a[i])) {
+            if (o.equals(objects[i])) {
                 return i;
             }
         }
@@ -218,11 +221,11 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         @SuppressWarnings("unchecked")
-        List<T> result = Arrays.asList(Arrays.copyOfRange((T[])a, fromIndex, toIndex));
+        List<T> result = Arrays.asList(Arrays.copyOfRange((T[])objects, fromIndex, toIndex));
         return result;
     }
 
-    private class Itr implements Iterator<T> {
+    private class MyArrayListIterator implements Iterator<T> {
 
         int lastIndex = -1;
 
@@ -237,12 +240,12 @@ public class MyArrayList<T> implements List<T> {
                 throw new IndexOutOfBoundsException();
             }
             @SuppressWarnings("unchecked")
-            T result = (T) a[++lastIndex];
+            T result = (T) objects[++lastIndex];
             return result;
         }
     }
 
-    private class ListItr extends Itr implements ListIterator<T> {
+    private class ListItr extends MyArrayListIterator implements ListIterator<T> {
 
         ListItr() {
             super();
@@ -261,7 +264,7 @@ public class MyArrayList<T> implements List<T> {
         @Override
         public T previous() {
             @SuppressWarnings("unchecked")
-            T result = (T) a[lastIndex--];
+            T result = (T) objects[lastIndex--];
             return result;
         }
 

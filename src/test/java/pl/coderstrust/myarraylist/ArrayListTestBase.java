@@ -22,7 +22,7 @@ abstract class ArrayListTestBase {
     abstract List getArrayList(Long[] input);
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for creating empty ArrayList and adding some variables")
+    @DisplayName("Creating empty ArrayList and adding some objects.")
     @MethodSource("constructorAddArguments")
     void shouldCreateArrayAndAddValue(List<Long> expected, Long d1, Long d2, Long d3) {
         List<Long> arrayToTest = getArrayList();
@@ -39,7 +39,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for removing element by object.")
+    @DisplayName("Removing object from list by reference.")
     void shouldRemoveElementByObject() {
         Long[] arr = {1L, 2L, 3L, 4L};
         List<Long> array = getArrayList(arr);
@@ -48,7 +48,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for removing element by index.")
+    @DisplayName("Remove object from list by index..")
     void shouldRemoveElementByIndex() {
         Long[] arr = {1L, 2L, 3L, 4L};
         List<Long> array = getArrayList(arr);
@@ -57,14 +57,14 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for removing element by index - should throw exception for invalid input")
+    @DisplayName("Removing object from list by index should throw exception for invalid input")
     void shouldThrowExceptionForElementByIndex() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         assertThrows(IndexOutOfBoundsException.class, () -> array.remove(5));
     }
 
     @Test
-    @DisplayName("Unit test for adding elements from another collection to the end of arraylist.")
+    @DisplayName("Removing elements from another collection to the end of list.")
     void shouldRemoveAllElementsFromAnotherCollection() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
         ArrayList<Long> anotherArray = new ArrayList<>(Arrays.asList(2L, 3L));
@@ -73,7 +73,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for clearing arraylist and checking isEmpty")
+    @DisplayName("Clearing list and checking isEmpty.")
     void shouldClearArrayListAndReturnTrueForIsEmpty() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         array.clear();
@@ -81,14 +81,14 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for clearing arraylist and checking isEmpty")
+    @DisplayName("Checking isEmpty for non empty list.")
     void shouldReturnFalseForIsEmpty() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         assertFalse(array.isEmpty());
     }
 
     @Test
-    @DisplayName("Unit test for adding elements from another collection to the end of arraylist.")
+    @DisplayName("Adding elements from another collection to the end of arraylist.")
     void shouldAddAllElementsFromAnotherCollection() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
         ArrayList<Long> anotherArray = new ArrayList<Long>(Arrays.asList(1L, 2L, 3L));
@@ -97,7 +97,7 @@ abstract class ArrayListTestBase {
     }
 
     @ParameterizedTest
-    @DisplayName("Parameterized test for adding elements from another collection to the chosen index of arraylist.")
+    @DisplayName("Adding elements from another collection to the chosen index of arraylist.")
     @MethodSource("addAllIndexArguments")
     void shouldAddAllElementsFromAnotherCollectionAtIndex0(int index, Long[] expected, List<Long> actual) {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
@@ -113,7 +113,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for retainAll method")
+    @DisplayName("Retaining elements from another list.")
     void shouldRetainElementsAndReturnSmallerArray() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         List<Long> array2 = getArrayList(new Long[] {1L, 4L});
@@ -122,14 +122,14 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for sublist of ArrayList")
+    @DisplayName("Creating a sublist of given list.")
     void shouldReturnSubListFromIndex1ToIndex2() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         assertArrayEquals(new Long[] {2L, 3L}, array.subList(1, 3).toArray());
     }
 
     @Test
-    @DisplayName("Unit test for iterator and it's next() method")
+    @DisplayName("Creating iterator and testing it's next() method.")
     void iteratorShouldReturnNextElements() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
         Iterator it = array.iterator();
@@ -139,7 +139,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for containsAll method - should return true")
+    @DisplayName("Checking containsAll method - should return true")
     void shouldReturnTrueForContainsAll() {
         List<Long> myArray = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         ArrayList<Long> array = new ArrayList<> (Arrays.asList(1L, 2L, 3L));
@@ -147,7 +147,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for containsAll method - should return false")
+    @DisplayName("Checking containsAll method - should return false")
     void shouldReturnFalseForContainsAll() {
         List<Long> myArray = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         ArrayList<Long> array = new ArrayList<> (Arrays.asList(1L, 99L, 3L));
@@ -155,7 +155,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for iterator's hasNext() method on non empty arrayList")
+    @DisplayName("Checking iterator's hasNext() method on non empty arrayList")
     void shouldReturnTrueForHasNextMethod() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         Iterator it = array.iterator();
@@ -163,7 +163,7 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for iterator's hasNext() method on empty arrayList")
+    @DisplayName("Checking iterator's hasNext() method on empty arrayList")
     void shouldReturnFalseForHasNextMethod() {
         List<Long> array = getArrayList();
         Iterator it = array.iterator();
@@ -171,21 +171,21 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for get method")
+    @DisplayName("Getting an object from list by index.")
     void shouldReturnElementFromSpecifiedIndex() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
         assertEquals(2L, array.get(1));
     }
 
     @Test
-    @DisplayName("Unit test for get method - should throw exception for invalid input")
+    @DisplayName("Getting an object from list by index - should throw exception for invalid input.")
     void shouldThrowExceptionForGetMethod() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         assertThrows(IndexOutOfBoundsException.class, () -> array.get(5));
     }
 
     @Test
-    @DisplayName("Unit test for set method")
+    @DisplayName("Setting element from list to other value by index.")
     void shouldSetElementAtSpecifiedIndex() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
         array.set(1, 4L);
@@ -193,21 +193,21 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for set method - should throw exception for invalid input")
+    @DisplayName("Setting element from list to other value by index - should throw exception for invalid index.")
     void shouldThrowExceptionForSetMethod() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L, 4L});
         assertThrows(IndexOutOfBoundsException.class, () -> array.set(5, 10L));
     }
 
     @Test
-    @DisplayName("Unit test for lastIndexOf method")
+    @DisplayName("Getting lastIndexOf by reference.")
     void shouldReturnLastIndexOfInput() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 1L});
         assertEquals(2, array.lastIndexOf(1L));
     }
 
     @Test
-    @DisplayName("Unit test for size method")
+    @DisplayName("Getting size after adding and removing some elements.")
     void shouldReturnCorrectSize() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
         array.add(4L);
@@ -217,10 +217,17 @@ abstract class ArrayListTestBase {
     }
 
     @Test
-    @DisplayName("Unit test for list iterator")
+    @DisplayName("Creating listIterator by index and getting it's previous element")
     void shouldCreateListItrAtGivenIndexAndReturnPreviousElement() {
         List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
         ListIterator it = array.listIterator(1);
         assertEquals(1L, it.previous());
+    }
+
+    @Test
+    @DisplayName("indexOf method should throw exception for null object")
+    void shouldThrowNPEinIndexOfMethodForNullObject() {
+        List<Long> array = getArrayList(new Long[] {1L, 2L, 3L});
+        assertThrows(NullPointerException.class, () -> array.indexOf(null));
     }
 }
