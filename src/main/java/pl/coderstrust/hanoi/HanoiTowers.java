@@ -9,18 +9,24 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class HanoiTowers {
+class HanoiTowers {
 
     private static final String OUTPUT_FILE_PATH = "src/main/resources/HanoiOutput.txt";
+    private static List<Stack<Integer>> hanoiTowersList;
+
+    public HanoiTowers(int disksNumber) throws IOException {
+        Files.write(Paths.get(OUTPUT_FILE_PATH), "".getBytes());
+        hanoiTowersList = new ArrayList<>();
+        initializeStacks(hanoiTowersList, disksNumber);
+        solveHanoi(disksNumber, hanoiTowersList.get(0), hanoiTowersList.get(1), hanoiTowersList.get(2));
+        printTowers();
+    }
 
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter number of disks: ");
-        Files.write(Paths.get(OUTPUT_FILE_PATH), "".getBytes());
         int disksNumber = sc.nextInt();
-        List<Stack<Integer>> hanoiTowers = new ArrayList<>();
-        initializeStacks(hanoiTowers, disksNumber);
-        solveHanoi(disksNumber, hanoiTowers.get(0), hanoiTowers.get(1), hanoiTowers.get(2));
+        new HanoiTowers(disksNumber);
     }
 
     private static void initializeStacks(List<Stack<Integer>> toInitialize, int disksNumber) {
@@ -36,13 +42,13 @@ public class HanoiTowers {
     private static void solveHanoi(int n, Stack<Integer> A, Stack<Integer> B, Stack<Integer> C) throws IOException {
         if (n > 0) {
             solveHanoi(n - 1, A, C, B);
+            printTowers();
             C.push(A.pop());
-            printTowers(A, B, C);
             solveHanoi(n - 1, B, A, C);
         }
     }
 
-    private static void printTowers(Stack<Integer> A, Stack<Integer> B, Stack<Integer> C) throws IOException {
-        Files.write(Paths.get(OUTPUT_FILE_PATH), String.format("%-40s %-40s %-40s\n", "A: " + A.toString(), "B: " + B.toString(), "C: " + C.toString()).getBytes(), StandardOpenOption.APPEND);
+    private static void printTowers() throws IOException {
+        Files.write(Paths.get(OUTPUT_FILE_PATH), String.format("%-40s %-40s %-40s\n", "A: " + hanoiTowersList.get(0).toString(), "B: " + hanoiTowersList.get(1).toString(), "C: " + hanoiTowersList.get(2).toString()).getBytes(), StandardOpenOption.APPEND);
     }
 }
