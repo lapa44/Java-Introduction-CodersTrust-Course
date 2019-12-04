@@ -9,8 +9,8 @@ public class DemoSomeProducersSleepingAndConsumers extends MainBase {
 
     public static void main(String[] args) {
         Queue<Integer> warehouse = new PriorityQueue<>(DEFAULT_CAPACITY);
-        executor = Executors.newFixedThreadPool(2);
         int producersNumber = 3, consumersNumber = 3;
+        executor = Executors.newFixedThreadPool(consumersNumber + producersNumber);
         for (int i = 0; i < producersNumber; i++) {
             executor.execute(new Producer(warehouse, lock, true));
         }
