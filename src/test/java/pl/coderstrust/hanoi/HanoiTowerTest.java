@@ -4,23 +4,28 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 
-class HanoiTowersTest {
+class HanoiTowerTest {
 
     @ParameterizedTest
+    @DisplayName("Solving hanoi towers")
     @MethodSource("hanoiArguments")
-    @DisplayName("Solving Hanoi Towers for 5 disks")
-    void shouldSolveHanoiTowersFor5Disks(int disksNumber, List<String> expected) throws IOException {
-        new HanoiTowers(disksNumber);
-        List<String> actual = Files.readAllLines(Paths.get("src/main/resources/HanoiOutput.txt"));
-        assertLinesMatch(expected, actual);
+    void shouldSolveHanoiAndReturnCorrectOutput(int disksNumber, List<String> expected) {
+        List<Stack<Integer>> hanoiTowersList = new ArrayList<>();
+        Stack<Integer> A = new Stack<>();
+        for (int i = disksNumber; i > 0; i--) {
+            A.push(i);
+        }
+        hanoiTowersList.add(A);
+        hanoiTowersList.add(new Stack<>());
+        hanoiTowersList.add(new Stack<>());
+        assertLinesMatch(new HanoiTower(hanoiTowersList).solveHanoi(disksNumber, hanoiTowersList.get(0), hanoiTowersList.get(1), hanoiTowersList.get(2)), expected);
     }
 
     private static Stream<Arguments> hanoiArguments() {
