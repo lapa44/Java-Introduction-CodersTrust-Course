@@ -1,27 +1,18 @@
 package pl.coderstrust.multiThreading.ownSync;
 
+import java.time.Duration;
 import java.util.Queue;
 
-public class Producer implements Runnable {
+class Producer implements Runnable {
 
-    private Queue<Integer> warehouse;
+    private final Queue<Integer> warehouse;
     private final Object lock;
-    private final boolean sleepFlag;
-    private int interval = 1000;
+    private Duration interval;
 
-    public Producer(Queue<Integer> warehouse, Object lock, boolean sleepFlag, int interval) {
-        super();
+    public Producer(Queue<Integer> warehouse, Object lock, Duration interval) {
         this.warehouse = warehouse;
         this.lock = lock;
-        this.sleepFlag = sleepFlag;
         this.interval = interval;
-    }
-
-    public Producer(Queue<Integer> warehouse, Object lock, boolean sleepFlag) {
-        super();
-        this.warehouse = warehouse;
-        this.lock = lock;
-        this.sleepFlag = sleepFlag;
     }
 
     @Override
@@ -33,12 +24,11 @@ public class Producer implements Runnable {
                         warehouse.add(1);
                         System.out.println(Thread.currentThread().getName() + ": Producer put new item in the warehouse.");
                         lock.notify();
-                        if (sleepFlag)
-                            Thread.sleep(interval);
+                        Thread.sleep(interval.toMillis());
                     }
                     else {
                         System.out.println(Thread.currentThread().getName() + ": Producer is waiting for consumer to take elements.");
-                        lock.wait(interval);
+                        lock.wait();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

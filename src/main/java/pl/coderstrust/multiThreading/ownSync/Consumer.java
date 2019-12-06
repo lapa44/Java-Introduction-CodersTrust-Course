@@ -1,26 +1,18 @@
 package pl.coderstrust.multiThreading.ownSync;
 
+import java.time.Duration;
 import java.util.Queue;
 
-public class Consumer implements Runnable {
-    private Queue<Integer> warehouse;
+class Consumer implements Runnable {
+
+    private final Queue<Integer> warehouse;
     private final Object lock;
-    private final boolean sleepFlag;
-    private int interval = 1000;
+    private Duration interval;
 
-    public Consumer(Queue<Integer> warehouse, Object lock, boolean sleepFlag, int interval) {
-        super();
+    public Consumer(Queue<Integer> warehouse, Object lock, Duration interval) {
         this.warehouse = warehouse;
         this.lock = lock;
-        this.sleepFlag = sleepFlag;
         this.interval = interval;
-    }
-
-    public Consumer(Queue<Integer> warehouse, Object lock, boolean sleepFlag) {
-        super();
-        this.warehouse = warehouse;
-        this.lock = lock;
-        this.sleepFlag = sleepFlag;
     }
 
     @Override
@@ -35,8 +27,7 @@ public class Consumer implements Runnable {
                         warehouse.remove();
                         lock.notify();
                         System.out.println(Thread.currentThread().getName() + ": Consumer took element from the warehouse.");
-                        if (sleepFlag)
-                            Thread.sleep(interval);
+                        Thread.sleep(interval.toMillis());
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

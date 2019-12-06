@@ -1,19 +1,23 @@
 package pl.coderstrust.multiThreading.ownSync;
 
-import pl.coderstrust.multiThreading.MainBase;
+import java.time.Duration;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class DemoSomeProducers1ConsumerSleeping extends MainBase {
+public class DemoSomeProducers1ConsumerSleeping {
+
+    private static final int DEFAULT_CAPACITY = 10;
+    private static final Object lock = new Object();
 
     public static void main(String[] args) {
         Queue<Integer> warehouse = new PriorityQueue<>(DEFAULT_CAPACITY);
         int producersNumber = 3;
-        executor = Executors.newFixedThreadPool(producersNumber + 1);
+        ExecutorService service = Executors.newFixedThreadPool(producersNumber + 1);
         for (int i = 0; i < producersNumber; i++) {
-            executor.execute(new Producer(warehouse, lock, false));
+            service.execute(new Producer(warehouse, lock, Duration.ofSeconds(0)));
         }
-        executor.execute(new Consumer(warehouse, lock, true));
+        service.execute(new Consumer(warehouse, lock, Duration.ofSeconds(1)));
     }
 }

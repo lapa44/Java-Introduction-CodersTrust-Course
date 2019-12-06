@@ -1,40 +1,30 @@
 package pl.coderstrust.multiThreading.BlockingQueue;
 
+import java.time.Duration;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class Producer implements Runnable {
+class Producer implements Runnable {
 
-    private BlockingQueue<Integer> warehouse;
-    private boolean sleepFlag;
-    private int interval = 1000;
+    private final BlockingQueue<Integer> warehouse;
+    private Duration interval;
 
-    public Producer(BlockingQueue<Integer> warehouse, boolean sleepFlag, int interval) {
-        super();
+    public Producer(BlockingQueue<Integer> warehouse, Duration interval) {
         this.warehouse = warehouse;
-        this.sleepFlag = sleepFlag;
         this.interval = interval;
-    }
-
-    public Producer(BlockingQueue<Integer> warehouse, boolean sleepFlag) {
-        super();
-        this.warehouse = warehouse;
-        this.sleepFlag = sleepFlag;
     }
 
     @Override
     public void run() {
         while (true) {
                 try {
-                    if(warehouse.offer(1, interval, TimeUnit.MILLISECONDS)) {
+                    if(warehouse.offer(1, interval.getSeconds(), TimeUnit.SECONDS)) {
                         System.out.println(Thread.currentThread().getName() + ": Producer put new item in the warehouse.");
-                        if (sleepFlag)
-                            Thread.sleep(interval);
                     }
-                    else {
-                        System.out.println(Thread.currentThread().getName() + ": Producer is waiting for consumer to take elements.");
-                            Thread.sleep(interval);
+                    else{
+                            System.out.println(Thread.currentThread().getName() + ": Producer is waiting for consumer to take elements.");
                     }
+                    Thread.sleep(interval.toMillis());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

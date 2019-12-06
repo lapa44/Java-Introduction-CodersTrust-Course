@@ -1,24 +1,16 @@
 package pl.coderstrust.multiThreading.BlockingQueue;
 
+import java.time.Duration;
 import java.util.concurrent.BlockingQueue;
 
-public class Consumer implements Runnable {
+class Consumer implements Runnable {
 
-    private BlockingQueue<Integer> warehouse;
-    private boolean sleepFlag;
-    private int interval = 1000;
+    private final BlockingQueue<Integer> warehouse;
+    private Duration interval;
 
-    public Consumer(BlockingQueue<Integer> warehouse, boolean sleepFlag, int interval) {
-        super();
+    public Consumer(BlockingQueue<Integer> warehouse, Duration interval) {
         this.warehouse = warehouse;
-        this.sleepFlag = sleepFlag;
         this.interval = interval;
-    }
-
-    public Consumer(BlockingQueue<Integer> warehouse, boolean sleepFlag) {
-        super();
-        this.warehouse = warehouse;
-        this.sleepFlag = sleepFlag;
     }
 
     @Override
@@ -30,8 +22,7 @@ public class Consumer implements Runnable {
                     }
                     warehouse.take();
                     System.out.println(Thread.currentThread().getName() + ": Consumer took element from the warehouse.");
-                    if (sleepFlag)
-                        Thread.sleep(interval);
+                    Thread.sleep(interval.toMillis());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
