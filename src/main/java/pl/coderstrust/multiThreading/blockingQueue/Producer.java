@@ -1,4 +1,4 @@
-package pl.coderstrust.multiThreading.BlockingQueue;
+package pl.coderstrust.multiThreading.blockingQueue;
 
 import java.time.Duration;
 import java.util.concurrent.BlockingQueue;
@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 class Producer implements Runnable {
 
     private final BlockingQueue<Integer> warehouse;
-    private Duration interval;
+    private final Duration interval;
 
     public Producer(BlockingQueue<Integer> warehouse, Duration interval) {
         this.warehouse = warehouse;

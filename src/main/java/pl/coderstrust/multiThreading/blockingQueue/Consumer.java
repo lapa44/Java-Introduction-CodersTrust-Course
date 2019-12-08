@@ -1,4 +1,4 @@
-package pl.coderstrust.multiThreading.BlockingQueue;
+package pl.coderstrust.multiThreading.blockingQueue;
 
 import java.time.Duration;
 import java.util.concurrent.BlockingQueue;
@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 class Consumer implements Runnable {
 
     private final BlockingQueue<Integer> warehouse;
-    private Duration interval;
+    private final Duration interval;
 
     public Consumer(BlockingQueue<Integer> warehouse, Duration interval) {
         this.warehouse = warehouse;

@@ -7,7 +7,7 @@ class Producer implements Runnable {
 
     private final Queue<Integer> warehouse;
     private final Object lock;
-    private Duration interval;
+    private final Duration interval;
 
     public Producer(Queue<Integer> warehouse, Object lock, Duration interval) {
         this.warehouse = warehouse;
