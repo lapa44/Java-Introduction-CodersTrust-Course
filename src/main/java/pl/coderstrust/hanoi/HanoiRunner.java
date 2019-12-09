@@ -16,8 +16,9 @@ class HanoiRunner {
         int disksNumber = sc.nextInt();
         List<Stack<Integer>> hanoiTowersList = initializeStacks(disksNumber);
         HanoiFileSupport fileSupport = new HanoiFileSupport(OUTPUT_FILE_PATH);
-        HanoiTower hanoi = new HanoiTower(hanoiTowersList);
-        fileSupport.writeData(hanoi.solveHanoi(disksNumber, hanoiTowersList.get(0), hanoiTowersList.get(1), hanoiTowersList.get(2)));
+        HanoiLogger logger = new HanoiLogger(fileSupport);
+        HanoiTower hanoi = new HanoiTower(hanoiTowersList, logger);
+        hanoi.solveHanoi(hanoiTowersList.get(0), hanoiTowersList.get(1), hanoiTowersList.get(2));
     }
 
     public static List<Stack<Integer>> initializeStacks(int disksNumber) {
