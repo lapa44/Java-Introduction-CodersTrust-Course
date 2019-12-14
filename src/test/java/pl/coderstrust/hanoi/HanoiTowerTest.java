@@ -28,7 +28,7 @@ class HanoiTowerTest {
         hanoiTowersList.add(A);
         hanoiTowersList.add(new Stack<>());
         hanoiTowersList.add(new Stack<>());
-        new HanoiTower(hanoiTowersList, new HanoiLogger(new HanoiFileSupport("src/main/resources/HanoiOutput.txt"))).solveHanoi(hanoiTowersList.get(0), hanoiTowersList.get(1), hanoiTowersList.get(2));
+        new HanoiTower(hanoiTowersList, new HanoiLogger(new HanoiFileSupport("src/main/resources/HanoiOutput.txt"))).solveHanoi();
         assertTrue(hanoiTowersList.get(0).isEmpty());
         assertTrue(hanoiTowersList.get(1).isEmpty());
         assertThat(hanoiTowersList.get(2), contains(expected.toArray()));

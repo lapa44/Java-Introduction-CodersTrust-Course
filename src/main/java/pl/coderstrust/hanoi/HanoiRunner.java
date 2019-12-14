@@ -18,7 +18,7 @@ class HanoiRunner {
         HanoiFileSupport fileSupport = new HanoiFileSupport(OUTPUT_FILE_PATH);
         HanoiLogger logger = new HanoiLogger(fileSupport);
         HanoiTower hanoi = new HanoiTower(hanoiTowersList, logger);
-        hanoi.solveHanoi(hanoiTowersList.get(0), hanoiTowersList.get(1), hanoiTowersList.get(2));
+        hanoi.solveHanoi();
     }
 
     public static List<Stack<Integer>> initializeStacks(int disksNumber) {

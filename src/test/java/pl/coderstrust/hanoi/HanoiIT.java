@@ -21,7 +21,7 @@ class HanoiIT {
     void shouldSolveHanoiTowersAndSaveCorrectOutputInFile(int disksNumber, List<String> expected) throws IOException {
         String OUTPUT_FILE_PATH = "src/main/resources/HanoiOutput.txt";
         List<Stack<Integer>> hanoiTowersList = HanoiRunner.initializeStacks(disksNumber);
-        new HanoiTower(hanoiTowersList, new HanoiLogger(new HanoiFileSupport(OUTPUT_FILE_PATH))).solveHanoi(hanoiTowersList.get(0), hanoiTowersList.get(1), hanoiTowersList.get(2));
+        new HanoiTower(hanoiTowersList, new HanoiLogger(new HanoiFileSupport(OUTPUT_FILE_PATH))).solveHanoi();
         assertLinesMatch(expected, Files.readAllLines(Paths.get("src/main/resources/HanoiOutput.txt")));
     }
 
