@@ -1,4 +1,4 @@
-package pl.coderstrust.multiThreading.asyncqueue;
+package pl.coderstrust.multithreading.asyncqueue;
 
 import java.time.Duration;
 import java.util.PriorityQueue;

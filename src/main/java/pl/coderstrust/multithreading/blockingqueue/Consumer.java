@@ -1,4 +1,4 @@
-package pl.coderstrust.multiThreading.blockingqueue;
+package pl.coderstrust.multithreading.blockingqueue;
 
 import java.time.Duration;
 import java.util.concurrent.BlockingQueue;
