@@ -1,8 +1,7 @@
-package pl.coderstrust.multiThreading.blockingQueue;
+package pl.coderstrust.multiThreading.blockingqueue;
 
 import java.time.Duration;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 class Producer implements Runnable {
 
@@ -18,12 +17,13 @@ class Producer implements Runnable {
     public void run() {
         while (true) {
                 try {
-                    if(warehouse.offer(1, interval.getSeconds(), TimeUnit.SECONDS)) {
+                    if(warehouse.remainingCapacity() != 0) {
                         System.out.println(Thread.currentThread().getName() + ": Producer put new item in the warehouse.");
                     }
-                    else{
+                    else {
                             System.out.println(Thread.currentThread().getName() + ": Producer is waiting for consumer to take elements.");
                     }
+                    warehouse.put(1);
                     Thread.sleep(interval.toMillis());
                 } catch (InterruptedException e) {
                     e.printStackTrace();

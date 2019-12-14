@@ -1,15 +1,15 @@
-package pl.coderstrust.multiThreading.ownSync;
+package pl.coderstrust.multiThreading.asyncqueue;
 
 import java.time.Duration;
 import java.util.Queue;
 
-class Consumer implements Runnable {
+class Producer implements Runnable {
 
     private final Queue<Integer> warehouse;
     private final Object lock;
     private final Duration interval;
 
-    public Consumer(Queue<Integer> warehouse, Object lock, Duration interval) {
+    public Producer(Queue<Integer> warehouse, Object lock, Duration interval) {
         this.warehouse = warehouse;
         this.lock = lock;
         this.interval = interval;
@@ -20,14 +20,15 @@ class Consumer implements Runnable {
         while (true) {
             synchronized (lock) {
                 try {
-                    if (warehouse.isEmpty()) {
-                        System.out.println(Thread.currentThread().getName() + ": Consumer is waiting for new products.");
-                        lock.wait();
-                    } else {
-                        warehouse.remove();
+                    if(warehouse.size() != 10) {
+                        warehouse.add(1);
+                        System.out.println(Thread.currentThread().getName() + ": Producer put new item in the warehouse.");
                         lock.notify();
-                        System.out.println(Thread.currentThread().getName() + ": Consumer took element from the warehouse.");
                         Thread.sleep(interval.toMillis());
+                    }
+                    else {
+                        System.out.println(Thread.currentThread().getName() + ": Producer is waiting for consumer to take elements.");
+                        lock.wait();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

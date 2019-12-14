@@ -1,4 +1,4 @@
-package pl.coderstrust.multiThreading.ownSync;
+package pl.coderstrust.multiThreading.asyncqueue;
 
 import java.time.Duration;
 import java.util.PriorityQueue;
